@@ -44,7 +44,7 @@ resource "aws_internet_gateway" "internet_gateway" {
 #When we associate it with gateway_id and not nat_gateway_id, it means that this route table is for public subnets
 resource "aws_route_table" "public_route_table" {
     vpc_id = aws_vpc.vpc.id
-    route = {
+    route {
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.internet_gateway.id
     }
@@ -64,7 +64,7 @@ resource "aws_route_table_association" "route_table_association" {
 #eip is required for the NAT Gateway to function
 resource "aws_eip" "nat_eip" {
   count = var.nat_enabled ? 1 : 0
-  vpc = true
+  domain = "vpc" # vpc=true created a waring in the console so we i replaced with this one
   tags = {
     Name = "BookAdvisor_nat_eip"
   }
@@ -85,7 +85,7 @@ resource "aws_nat_gateway" "nat" {
 #We still need to associate the private route table with the private subnet
 resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.vpc.id
-  route = {
+  route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat[0].id
   }
