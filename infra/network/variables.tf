@@ -29,3 +29,12 @@ variable "availability_zone" {
   default     = "eu-west-3a"
   
 }
+
+#NAT Gateway is for providing internet access to private subnets like 	Software updates, external API calls
+#It is set to false for cost-saving purposes, but can be enabled if needed
+variable "nat_enabled" {
+  description = "Enable NAT gateway for private subnet"
+  type        = bool
+  default     = false
+  
+}
