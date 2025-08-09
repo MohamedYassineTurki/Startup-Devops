@@ -72,7 +72,7 @@ resource "aws_eip" "nat_eip" {
 
 #NAT Gateway is required for private subnets to access the internet
 #It allows outbound traffic from private subnets to the internet while preventing inbound traffic
-resource "aws_nat_gateway" "nat" {
+resource "aws_nat_gateway" "nat_gateway" {
   count = var.nat_enabled ? 1 : 0 #how many NAT Gateways to create, based on the variable 1 or 0
   allocation_id = aws_eip.nat_eip[0].id
   subnet_id = aws_subnet.public_subnet.id #NAT Gateway is created in the public subnet
@@ -87,7 +87,7 @@ resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.vpc.id
   route {
     cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat[0].id
+    nat_gateway_id = aws_nat_gateway.nat_gateway[0].id
   }
   
   tags = {
