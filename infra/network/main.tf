@@ -4,6 +4,8 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
   tags = {
     Name = "BookAdvisor_vpc"
+    Environment = "Shared"
+    Project = "BookAdvisor"
   }
 }
 
@@ -15,6 +17,8 @@ resource "aws_subnet" "public_subnet" {
   
     tags = {
         Name = "BookAdvisor_public_subnet"
+        Environment = "Shared"
+        Project = "BookAdvisor"
     }
 }
 
@@ -26,6 +30,8 @@ resource "aws_subnet" "private_subnet" {
   
     tags = {
         Name = "BookAdvisor_private_subnet"
+        Environment = "Shared"
+        Project = "BookAdvisor"
     }
 }
 
@@ -36,6 +42,8 @@ resource "aws_internet_gateway" "internet_gateway" {
     vpc_id = aws_vpc.vpc.id
     tags = {
         Name = "BookAdvisor_internet_gateway"
+        Environment = "Shared"
+        Project = "BookAdvisor"
     }
 }
 
@@ -50,6 +58,8 @@ resource "aws_route_table" "public_route_table" {
     }
     tags = {
         Name = "BookAdvisor_public_route_table"
+        Environment = "Shared"
+        Project = "BookAdvisor"
     }
 }
 
@@ -67,6 +77,8 @@ resource "aws_eip" "nat_eip" {
   domain = "vpc" # vpc=true created a waring in the console so we i replaced with this one
   tags = {
     Name = "BookAdvisor_nat_eip"
+    Environment = "Shared"
+    Project = "BookAdvisor"
   }
 }
 
@@ -78,6 +90,8 @@ resource "aws_nat_gateway" "nat_gateway" {
   subnet_id = aws_subnet.public_subnet.id #NAT Gateway is created in the public subnet
   tags = {
     Name = "BookAdvisor_nat_gateway"
+    Environment = "Shared"
+    Project = "BookAdvisor"
   }
 }
 
@@ -93,6 +107,8 @@ resource "aws_route_table" "private_route_table" {
   
   tags = {
     Name = "BookAdvisor_private_route_table"
+    Environment = "Shared"
+    Project = "BookAdvisor"
   }
 }
 
