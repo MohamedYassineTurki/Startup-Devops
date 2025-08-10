@@ -87,7 +87,8 @@ resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.vpc.id
   route {
     cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gateway[0].id
+    nat_gateway_id = var.nat_enabled ? aws_nat_gateway.nat_gateway[0].id : null
+    # If NAT is not enabled, the route will be null, meaning no outbound internet access
   }
   
   tags = {

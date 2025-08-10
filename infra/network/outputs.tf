@@ -26,6 +26,6 @@ output "public_route_table_id" {
 
 output "nat_gateway_id" {
   description = "The ID of the NAT Gateway"
-  value       = aws_nat_gateway.nat_gateway[0].id
+  value       = var.nat_enabled ? aws_nat_gateway.nat_gateway[0].id : null
   
 }
