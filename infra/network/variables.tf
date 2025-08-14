@@ -1,3 +1,10 @@
+variable "aws_profile" {
+  description = "The AWS profile to use for authentication"
+  type        = string
+  default     = "default"
+}
+
+
 variable "region" {
   description = "The AWS region to deploy resources in"
   type        = string
@@ -38,3 +45,4 @@ variable "nat_enabled" {
   default     = false
   
 }
+

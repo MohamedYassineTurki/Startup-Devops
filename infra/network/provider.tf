@@ -1,6 +1,6 @@
 provider "aws" {
   region           = "eu-west-3"
-  profile          = "my profile name"
+  profile          = "var.aws_profile"
 }
 #this is for version pinning and it's best practice for production environments
 terraform {
