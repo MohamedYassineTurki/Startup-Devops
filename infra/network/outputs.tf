@@ -9,9 +9,21 @@ output "public_subnet_id" {
   
 }
 
-output "private_subnet_id" {
+output "private_subnet_1_id" {
   description = "The IDs of the private subnets"
-  value       = [aws_subnet.private_subnet.id] #transfomed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
+  value       = [aws_subnet.private_subnet_1.id] #transfomed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
+}
+
+output "private_subnet_2_id" {
+  description = "The IDs of the private subnets"
+  value       = [aws_subnet.private_subnet_2.id] #transformed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
+  
+}
+
+output "private_subnet_ids" {
+  description = "The IDs of the private subnets"
+  value       = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id] 
+  
 }
 
 output "internet_gateway_id" {
