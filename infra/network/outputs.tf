@@ -4,14 +4,14 @@ output "vpc_id" {
 }
 
 output "public_subnet_id" {
-  description = "The ID of the public subnet"
-  value       = aws_subnet.public_subnet.id
+  description = "The IDs of the public subnets"
+  value       = [aws_subnet.public_subnet.id] #transformed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
   
 }
 
 output "private_subnet_id" {
-  description = "The ID of the private subnet"
-  value       = aws_subnet.private_subnet.id
+  description = "The IDs of the private subnets"
+  value       = [aws_subnet.private_subnet.id] #transfomed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
 }
 
 output "internet_gateway_id" {
