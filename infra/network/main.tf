@@ -109,10 +109,10 @@ resource "aws_nat_gateway" "nat_gateway" {
 
 #When we associate it with nat_gateway_id, it means that this route table is for private subnets
 #We still need to associate the private route table with the private subnet
-resource "aws_route_table" "private_route_table" {
+resource "aws_route_table" "private_route_table_1" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "BookAdvisor_private_route_table"
+    Name = "BookAdvisor_private_route_table_1"
     Environment = "Shared"
     Project = "BookAdvisor"
   }
@@ -121,14 +121,42 @@ resource "aws_route_table" "private_route_table" {
 #the code before was i have route block in the private route table, but even when the NAT Gateway is not enabled, it still creates the route table with it's default route
 #So i added a count to the route block to create it only when the NAT Gateway is enabled
 #And this route will call the private route table to route traffic to the NAT Gateway
-resource "aws_route" "private_route" {
+resource "aws_route" "private_route_1" {
   count = var.nat_enabled ? 1 : 0
-  route_table_id = aws_route_table.private_route_table.id
+  route_table_id = aws_route_table.private_route_table_1.id
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = aws_nat_gateway.nat_gateway[0].id #This route allows private subnets to access the internet via the NAT Gateway
 }
 
-resource "aws_route_table_association" "private_route_table_association" {
+resource "aws_route_table_association" "private_route_table_association_1" {
   subnet_id = aws_subnet.private_subnet_1.id
-  route_table_id = aws_route_table.private_route_table.id
+  route_table_id = aws_route_table.private_route_table_1.id
+}
+
+
+
+#When we associate it with nat_gateway_id, it means that this route table is for private subnets
+#We still need to associate the private route table with the private subnet
+resource "aws_route_table" "private_route_table_2" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "BookAdvisor_private_route_table_2"
+    Environment = "Shared"
+    Project = "BookAdvisor"
+  }
+}
+
+#the code before was i have route block in the private route table, but even when the NAT Gateway is not enabled, it still creates the route table with it's default route
+#So i added a count to the route block to create it only when the NAT Gateway is enabled
+#And this route will call the private route table to route traffic to the NAT Gateway
+resource "aws_route" "private_route_2" {
+  count = var.nat_enabled ? 1 : 0
+  route_table_id = aws_route_table.private_route_table_2.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.nat_gateway[0].id #This route allows private subnets to access the internet via the NAT Gateway
+}
+
+resource "aws_route_table_association" "private_route_table_association_2" {
+  subnet_id = aws_subnet.private_subnet_2.id
+  route_table_id = aws_route_table.private_route_table_2.id
 }
