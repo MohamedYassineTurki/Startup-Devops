@@ -1,0 +1,10 @@
+{
+    "Item": {
+        "Digest": {
+            "S": "bea5683a3531a08a9ba127b4e6c3a4a6"
+        },
+        "LockID": {
+            "S": "bookadvisor-terraform-state-2025/network/terraform.tfstate-md5"
+        }
+    }
+}

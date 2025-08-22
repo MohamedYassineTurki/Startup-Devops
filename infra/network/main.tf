@@ -9,16 +9,33 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-resource "aws_subnet" "public_subnet" {
+resource "aws_subnet" "public_subnet_1" {
     vpc_id = aws_vpc.vpc.id
-    cidr_block = var.public_subnet_cidr_block
+    cidr_block = var.public_subnet_1_cidr_block
     availability_zone = var.availability_zone_1
     map_public_ip_on_launch = true
   
     tags = {
-        Name = "BookAdvisor_public_subnet"
+        Name = "BookAdvisor_public_subnet_1"
         Environment = "Shared"
         Project = "BookAdvisor"
+        "kubernetes.io/cluster/BookAdvisor_cluster" = "owned" #This tag is used by EKS to identify the subnets that are part of the cluster
+        "kubernetes.io/role/elb" = 1 #This tag is used by EKS to identify the public subnets that are part of the cluster
+    }
+}
+
+resource "aws_subnet" "public_subnet_2" {
+    vpc_id = aws_vpc.vpc.id
+    cidr_block = var.public_subnet_2_cidr_block
+    availability_zone = var.availability_zone_2
+    map_public_ip_on_launch = true
+  
+    tags = {
+        Name = "BookAdvisor_public_subnet_2"
+        Environment = "Shared"
+        Project = "BookAdvisor"
+        "kubernetes.io/cluster/BookAdvisor_cluster" = "owned" #This tag is used by EKS to identify the subnets that are part of the cluster
+        "kubernetes.io/role/elb" = 1 #This tag is used by EKS to identify the public subnets that are part of the cluster
     }
 }
 
@@ -32,6 +49,8 @@ resource "aws_subnet" "private_subnet_1" {
         Name = "BookAdvisor_private_subnet_1"
         Environment = "Shared"
         Project = "BookAdvisor"
+        "kubernetes.io/cluster/BookAdvisor_cluster" = "owned" #This tag is used by EKS to identify the subnets that are part of the cluster
+        "kubernetes.io/role/internal-elb" = 1 #This tag is used by EKS to identify the private subnets that are part of the cluster
     }
 }
 resource "aws_subnet" "private_subnet_2" {
@@ -44,6 +63,9 @@ resource "aws_subnet" "private_subnet_2" {
         Name = "BookAdvisor_private_subnet_2"
         Environment = "Shared"
         Project = "BookAdvisor"
+        "kubernetes.io/cluster/BookAdvisor_cluster" = "owned" #This tag is used by EKS to identify the subnets that are part of the cluster
+        "kubernetes.io/role/internal-elb" = 1 #This tag is used by EKS to identify the private subnets that are part of the cluster
+
     }
 }
 
@@ -62,25 +84,49 @@ resource "aws_internet_gateway" "internet_gateway" {
 
 
 #When we associate it with gateway_id and not nat_gateway_id, it means that this route table is for public subnets
-resource "aws_route_table" "public_route_table" {
+resource "aws_route_table" "public_route_table_1" {
     vpc_id = aws_vpc.vpc.id
     route {
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.internet_gateway.id
     }
     tags = {
-        Name = "BookAdvisor_public_route_table"
+        Name = "BookAdvisor_public_route_table_1"
         Environment = "Shared"
         Project = "BookAdvisor"
     }
 }
 
 #Associating the public route table with the public subnet this is necessary for the public subnet to route traffic to the internet
-resource "aws_route_table_association" "route_table_association" {
-    subnet_id = aws_subnet.public_subnet.id
-    route_table_id = aws_route_table.public_route_table.id
+resource "aws_route_table_association" "route_table_association_1" {
+    subnet_id = aws_subnet.public_subnet_1.id
+    route_table_id = aws_route_table.public_route_table_1.id
 }
 #=> the public subnet is associated with the public route table , allowing it to route traffic to the internet via the internet gateway
+
+
+#When we associate it with gateway_id and not nat_gateway_id, it means that this route table is for public subnets
+resource "aws_route_table" "public_route_table_2" {
+    vpc_id = aws_vpc.vpc.id
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.internet_gateway.id
+    }
+    tags = {
+        Name = "BookAdvisor_public_route_table_2"
+        Environment = "Shared"
+        Project = "BookAdvisor"
+    }
+}
+
+#Associating the public route table with the public subnet this is necessary for the public subnet to route traffic to the internet
+resource "aws_route_table_association" "route_table_association_2" {
+    subnet_id = aws_subnet.public_subnet_2.id
+    route_table_id = aws_route_table.public_route_table_2.id
+}
+#=> the public subnet is associated with the public route table , allowing it to route traffic to the internet via the internet gateway
+
+
 
 
 #eip is required for the NAT Gateway to function
@@ -99,7 +145,7 @@ resource "aws_eip" "nat_eip" {
 resource "aws_nat_gateway" "nat_gateway" {
   count = var.nat_enabled ? 1 : 0 #how many NAT Gateways to create, based on the variable 1 or 0
   allocation_id = aws_eip.nat_eip[0].id
-  subnet_id = aws_subnet.public_subnet.id #NAT Gateway is created in the public subnet
+  subnet_id = aws_subnet.public_subnet_1.id #NAT Gateway is created in the public subnet
   tags = {
     Name = "BookAdvisor_nat_gateway"
     Environment = "Shared"

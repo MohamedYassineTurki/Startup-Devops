@@ -3,11 +3,16 @@ output "vpc_id" {
   value       = aws_vpc.vpc.id
 }
 
-output "public_subnet_id" {
+output "public_subnet_1_id" {
   description = "The IDs of the public subnets"
-  value       = [aws_subnet.public_subnet.id] #transformed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
+  value       = [aws_subnet.public_subnet_1.id] #transformed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
   
 }
+
+output "public_subnet_2_id" {
+  description = "The IDs of the public subnets"
+  value       = [aws_subnet.public_subnet_2.id] #transformed it to a list using a [] because in cluster configuration, it expects a list of subnet IDs
+} 
 
 output "private_subnet_1_id" {
   description = "The IDs of the private subnets"
@@ -31,9 +36,14 @@ output "internet_gateway_id" {
   value       = aws_internet_gateway.internet_gateway.id 
 }
 
-output "public_route_table_id" {
+output "public_route_table_1_id" {
   description = "The ID of the public route table"
-  value       = aws_route_table.public_route_table.id
+  value       = aws_route_table.public_route_table_1.id
+}
+
+output "public_route_table_2_id" {
+  description = "The ID of the second public route table"
+  value       = aws_route_table.public_route_table_2.id
 }
 
 output "nat_gateway_id" {
