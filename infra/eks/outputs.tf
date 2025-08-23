@@ -8,3 +8,9 @@ output "EKS_Node_Group_Role_ARN" {
   description = "The ARN of the EKS Node Group Role"
   value       = aws_iam_role.BookAdvisor_Node_Group_Role.arn
 }
+
+output "EKS_Cluster_Security_Group_ID" {
+  description = "The security group ID of the EKS Cluster"
+  value       = aws_eks_cluster.eks_cluster.vpc_config[0].cluster_security_group_id
+}
+

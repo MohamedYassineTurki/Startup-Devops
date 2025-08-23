@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-db-access
+  namespace: default
+spec:
+  containers:
+  - name: mysql-client
+    image: mysql:8.0  # Contains mysql client
+    command: ["sleep", "3600"]  # Keep running
+  restartPolicy: Never

@@ -74,3 +74,9 @@ resource "aws_iam_role_policy_attachment" "Node_Group_Load_Balancer_Policy_Attac
   role       = aws_iam_role.BookAdvisor_Node_Group_Role.name
   policy_arn = aws_iam_policy.AWSLoadBalancerControllerIAMPolicy.arn
 }
+
+resource "aws_iam_role_policy_attachment" "Node_Group_Secrets_Manager_Policy_Attachment_GetSecretValue" {
+  role       = aws_iam_role.BookAdvisor_Node_Group_Role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+  }
+
