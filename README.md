@@ -43,18 +43,20 @@ This repository provides an opinionated, repeatable baseline to provision a ligh
 
 ## Repo Layout
 
+```plaintext
 Startup-DevOps/
-├─ [README.md]              <- This file
-├─ architecture.png         <- Visual overview of the architecture
-├─ Dockerfiles/             <- Future: Application Dockerfiles
-├─ cicd/                    <- Future: GitLab CI templates & documentation
-├─ terraform/
-│  ├─ backend.tf
-│  ├─ network/
-│  ├─ eks/
-│  ├─ rds/
-│  └─ iam/
-└─ manifests/               <- Kubernetes manifests & ingress examples 
+├── README.md               <- This file
+├── architecture.png         <- Visual overview of the architecture
+├── Dockerfiles/             <- Application Dockerfiles (future use)
+├── cicd/                    <- GitLab CI templates & documentation (future use)
+├── terraform/               <- Terraform modules for infrastructure
+│   ├── backend.tf           <- Remote state backend configuration
+│   ├── network/             <- VPC and networking resources
+│   ├── eks/                 <- EKS cluster and node group resources
+│   ├── rds/                 <- RDS database resources
+│   └── iam/                 <- IAM roles and policies
+└── manifests/               <- Kubernetes manifests and ingress examples
+```
 
 ## Environments & Team Boundaries
 
