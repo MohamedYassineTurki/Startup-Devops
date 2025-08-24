@@ -1,0 +1,1 @@
+This module provisions EKS cluster, managed node group (dev), and required IAM roles.
