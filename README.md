@@ -50,12 +50,10 @@ Startup-DevOps/
 ├── Dockerfiles/             <- Application Dockerfiles (future use)
 ├── cicd/                    <- GitLab CI templates & documentation (future use)
 ├── terraform/               <- Terraform modules for infrastructure
-│   ├── backend.tf           <- Remote state backend configuration
 │   ├── network/             <- VPC and networking resources
 │   ├── eks/                 <- EKS cluster and node group resources
 │   ├── rds/                 <- RDS database resources
-│   └── iam/                 <- IAM roles and policies
-└── manifests/               <- Kubernetes manifests and ingress examples
+
 ```
 
 ## Environments & Team Boundaries
@@ -84,7 +82,7 @@ Startup-DevOps/
 
 ### IAM
 - Start with node IAM policies that allow necessary calls (e.g., Secrets Manager access).
-- Plan migration to **IRSA** (IAM Roles for Service Accounts) for pod-level identities and least-privilege access.
+- Planing to migrate to **IRSA** (IAM Roles for Service Accounts) for pod-level identities and least-privilege access.
 
 ### Least Privilege
 - Grant only the required permissions to CI/CD service roles and node roles.
