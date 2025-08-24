@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-resource-quota
+  namespace: dev
+spec:
+  hard:
+    pods: "8"
+    requests.cpu: "1000m"
+    limits.cpu: "1500m"
+    requests.memory: "1Gi"
+    limits.memory: "1536Mi"
+    persistentvolumeclaims: "3"
+    requests.storage: "20Gi"

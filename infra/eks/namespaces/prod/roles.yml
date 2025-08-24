@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prod-role
+  namespace: prod
+rules:
+  - apiGroups: [""] # core
+    resources: ["services", "configmaps"]
+    verbs: ["get", "list", "create", "update"]
+
+  - apiGroups: ["apps"] # deployments only
+    resources: ["deployments"]
+    verbs: ["get", "list", "create", "update"]
+
+  - apiGroups: [""] # pods (only read, no delete/exec)
+    resources: ["pods"]
+    verbs: ["get", "list"]

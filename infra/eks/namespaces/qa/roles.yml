@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: qa-role
+  namespace: qa
+rules:
+  - apiGroups: [""] # core
+    resources: ["pods", "services", "configmaps"]
+    verbs: ["get", "list", "create", "update", "delete"]
+
+  - apiGroups: [""] # secrets
+    resources: ["secrets"]
+    verbs: ["get", "list"] # read-only
+
+  - apiGroups: ["apps"] # deployments, statefulsets, replicasets
+    resources: ["deployments", "statefulsets", "replicasets"]
+    verbs: ["get", "list", "create", "update", "delete"]

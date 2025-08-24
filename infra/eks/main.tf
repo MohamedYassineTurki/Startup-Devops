@@ -15,6 +15,9 @@
 #helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=BookAdvisor_cluster --set region=eu-west-3 --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
 
 
+#created three namespaces for the applications : dev , qa , prod by using:
+#kubectl create namespace dev
+
 resource "aws_eks_cluster" "eks_cluster" {
   name     = "BookAdvisor_cluster"
   role_arn = aws_iam_role.BookAdvisor_EKS_Cluster_Role.arn
