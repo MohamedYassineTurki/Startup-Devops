@@ -49,10 +49,10 @@ Startup-DevOps/
 ├── architecture.png         <- Visual overview of the architecture
 ├── Dockerfiles/             <- Application Dockerfiles (future use)
 ├── cicd/                    <- GitLab CI templates & documentation (future use)
-├── terraform/               <- Terraform modules for infrastructure
-│   ├── network/             <- VPC and networking resources
-│   ├── eks/                 <- EKS cluster and node group resources
-│   ├── rds/                 <- RDS database resources
+└── terraform/               <- Terraform modules for infrastructure
+    ├── network/             <- VPC and networking resources
+    ├── eks/                 <- EKS cluster and node group resources
+    └── rds/                 <- RDS database resources
 
 ```
 

@@ -1,14 +1,4 @@
-# Fetch remote state for VPC and Subnets
-data "terraform_remote_state" "network" {
-  backend = "s3"
 
-  # Update these values with your remote state configuration
-  config = {
-    bucket = "your-terraform-state-bucket"
-    key    = "network/terraform.tfstate"
-    region = "your-region"
-  }
-}
 
 resource "random_password" "rds_password" {
   length           = 16
