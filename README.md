@@ -43,9 +43,8 @@ This repository provides an opinionated, repeatable baseline to provision a ligh
 
 ## Repo Layout
 
-```plaintext
 Startup-DevOps/
-├─ [README.md](http://_vscodecontentref_/0)                <- This file
+├─ [README.md]              <- This file
 ├─ architecture.png         <- Visual overview of the architecture
 ├─ Dockerfiles/             <- Future: Application Dockerfiles
 ├─ cicd/                    <- Future: GitLab CI templates & documentation
@@ -55,7 +54,7 @@ Startup-DevOps/
 │  ├─ eks/
 │  ├─ rds/
 │  └─ iam/
-└─ manifests/               <- Kubernetes manifests & ingress examples
+└─ manifests/               <- Kubernetes manifests & ingress examples 
 
 ## Environments & Team Boundaries
 
