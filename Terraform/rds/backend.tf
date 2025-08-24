@@ -1,5 +1,5 @@
-#!! Create the s3 bucket and dynamodb table using the aws cli or console before running terraform init
 
+#!! Create the s3 bucket and dynamodb table using the aws cli or console before running terraform init
 
 #This is the backend configuration for Terraform state management
 #It specifies that the state will be stored in an S3 bucket, with a DynamoDB
@@ -9,7 +9,7 @@
 terraform {
   backend "s3" {
     bucket = "bookadvisor-terraform-state-2025"
-    key   = "network/terraform.tfstate"
+    key   = "rds/terraform.tfstate"
     dynamodb_table = "bookadvisor-tf-locks"
     region = "eu-west-3"
     encrypt = true
